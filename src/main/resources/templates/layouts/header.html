@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="myHeader">
+    <div id="about">
+        <div id="signin">
+            <a th:href="@{/login}"> Sign In </a>
+        </div>
+        
+        <div id="menu">
+            <ul class="list_menu" >
+                <li> <a href=""> Menu </a>
+                    <ul class="submenu">
+                        <li> <a th:href="@{/}">Home</a> </li>
+                        <li> <a th:href="@{/users}">Users</a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+</html>

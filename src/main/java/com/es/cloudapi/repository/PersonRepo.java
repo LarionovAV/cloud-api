@@ -11,6 +11,5 @@ public interface PersonRepo extends JpaRepository<Person, Integer> {
 
     Person findOneByLoginAndActive(String login, boolean active);
 
-    @Override
     List<Person> findAll();
 }

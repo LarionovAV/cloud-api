@@ -4,15 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Login</title>
     <link rel="stylesheet" th:href="@{/css/log.css}"/>
+    <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
 </head>
 <body>
-<header>
-    <div id="about">
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/login}">Sign In</a>
-        <a href="#">Info</a>
-    </div>
-</header>
+<div th:replace="layouts/header :: myHeader"></div>
 <div class="container">
     <div class="row" style="margin-top:20px" >
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">

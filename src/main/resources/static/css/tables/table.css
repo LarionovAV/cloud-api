@@ -1,0 +1,26 @@
+table{
+    color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
+
+td{
+    margin: unset;
+    text-align: center;
+    width: max-content;
+}
+tr{
+    border-style: solid;
+}
+
+.table_top{
+    background-color: #1B1B19;
+}
+
+.dark{
+    background-color: #00021c;
+}
+.light{
+    background-color: #373a62;
+}

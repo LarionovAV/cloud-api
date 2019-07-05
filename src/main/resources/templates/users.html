@@ -3,17 +3,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Users</title>
+        <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
+        <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
+        <link rel="stylesheet" th:href="@{/css/tables/table.css}"/>
         <link rel="stylesheet" th:href="@{/css/users.css}"/>
+
     </head>
 
     <body>
-        <header>
-            <div id="about">
-                <a th:href="@{/}">Home</a>
-                <a th:href="@{/login}">Sign In</a>
-            </div>
-        </header>
-        <div class="main_content">
+        <div th:replace="layouts/header :: myHeader"></div>
+        <div id="main_content">
             <table class="table_list">
                 <tr class="table_top">
                     <td> First name</td>

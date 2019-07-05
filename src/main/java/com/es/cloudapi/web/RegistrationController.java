@@ -3,9 +3,12 @@ package com.es.cloudapi.web;
 import com.es.cloudapi.service.security.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
@@ -26,11 +29,10 @@ public class RegistrationController {
 
     @PostMapping(value = "/registration")
     public String postRegistration(@RequestParam String username, @RequestParam String surname, @RequestParam String login,
-                                   @RequestParam String mail,@RequestParam String password,@RequestParam String password2) {
+                                   @RequestParam String mail, @RequestParam String password, @RequestParam String password2) {
 
 
-
-        if(password == null || !password.equals(password2)) {
+        if(password == "" || !password.equals(password2)) {
 
             return "redirect:registration";
         } else {
