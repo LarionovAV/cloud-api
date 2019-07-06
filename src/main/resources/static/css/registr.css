@@ -1,6 +1,6 @@
 
 /*Регистрация*/
-.container {
+#main_content {
     width: 100%;
     background-blend-mode: multiply;
     background-size: cover;
@@ -9,6 +9,11 @@
     text-align: center;
     padding: 100px 0px;
 }
+
+.field_unit .err {
+    color: #f21b0f !important;
+    font-size: 10pt;
+ }
 fieldset{
     background-color: #1B1B19;
     width: 17em;
@@ -20,32 +25,15 @@ fieldset{
     -moz-border-radius: 3px;
     border-radius: 10px;
 }
-.ram{
-    overflow: hidden;
-    width: 100%;
-    border-color: inherit;
-}
-h1{
-    float: left;
-    margin: 0 3px;
-    font-size: 23px;
-    font-weight: bold;
-    color: #b0b0b0;
-}
-.kagkopam {
-    position: relative;
-    left: 3px;
-
-    display: block;
-    overflow: hidden;
-
-    border-bottom: 2px solid;
-    border-color: inherit;
-    margin: 12px 0 0 0;
+fieldset{
+    color: #fff;
 }
 
-.form-group {
-    padding: 1em 0;
+
+.field_unit {
+    margin: 5px;
+    text-align: center;
+    align-self: center;
 }
 .button{
     display: inline-block;
@@ -59,4 +47,9 @@ h1{
     border-radius: 1px;
     transition: 0.2s;
     cursor: pointer;
+    margin: 5px;
+}
+
+legend{
+    align-self: center;
 }
