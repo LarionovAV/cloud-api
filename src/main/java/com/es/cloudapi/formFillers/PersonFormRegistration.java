@@ -3,43 +3,34 @@ package com.es.cloudapi.formFillers;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
 
-public class PersonRegistr {
+public class PersonFormRegistration {
 
     @Size(min = 1, max = 128, message = "Wrong name size")
-    String name;
+    private String name;
 
     @Length(min = 1, max = 128, message = "Wrong name size")
-    String surname;
+    private String surname;
 
     @Length(min = 5, max = 128, message = "Wrong size")
-    String login;
+    private String login;
 
-    @NotEmpty(message = "Password is required")
-    String password;
+    @NotBlank(message = "Password is required")
+    private String password;
 
-    @NotEmpty(message = "Password is required")
-    String password2;
+    @NotBlank(message = "Password is required")
+    private String password2;
 
     @Length(max = 128, message = "Email too long")
     @Email(message = "Wrong email format")
-    String mail;
+    private String mail;
 
 
 
-    public PersonRegistr() {
-    }
-
-    public PersonRegistr(String login, String password, String password2, String mail, String name, String surname) {
-        this.login = login;
-        this.password = password;
-        this.password2 = password2;
-        this.mail = mail;
-        this.name = name;
-        this.surname = surname;
+    public PersonFormRegistration() {
     }
 
     public String getLogin() {

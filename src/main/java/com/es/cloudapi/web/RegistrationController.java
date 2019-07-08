@@ -1,13 +1,13 @@
 package com.es.cloudapi.web;
 
-import com.es.cloudapi.formFillers.PersonRegistr;
+import com.es.cloudapi.formFillers.PersonFormRegistration;
+import com.es.cloudapi.repository.PersonRepo;
 import com.es.cloudapi.service.security.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +19,13 @@ public class RegistrationController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private PersonRepo personRepo;
+
     @GetMapping(value = "/registration")
     public String registration(Model model) {
-        model.addAttribute("personRegistr", new PersonRegistr());
+        model.addAttribute("personFormRegistration", new PersonFormRegistration());
         return "registration";
     }
 
@@ -32,16 +36,20 @@ public class RegistrationController {
 
 
     @PostMapping(value = "/registration")
-    public String postRegistration(@Valid @ModelAttribute("personRegistr") PersonRegistr personRegistr, BindingResult bindingResult) {
+    public String postRegistration(@Valid @ModelAttribute("personFormRegistration") PersonFormRegistration personFormRegistration, BindingResult bindingResult) {
 
-        if (personRegistr.getPassword2() != "" && !personRegistr.getPassword().equals(personRegistr.getPassword2()))
-            bindingResult.addError(new FieldError("personRegistr", "password2", "Passwords not equal"));
+        if (personFormRegistration.getPassword2() != "" && !personFormRegistration.getPassword().equals(personFormRegistration.getPassword2()))
+            bindingResult.addError(new FieldError("personFormRegistration", "password2", "Passwords not equal"));
+
+        if (personRepo.findOneByLoginAndActive(personFormRegistration.getLogin(), true) != null)
+            bindingResult.addError(new FieldError("personFormRegistration", "login", "Login is occupied, please use another one"));
+
         if (bindingResult.hasErrors()){
             return "registration";
         }
         else {
-            personService.register(personRegistr.getName(), personRegistr.getSurname(),
-                personRegistr.getLogin(), personRegistr.getMail(), personRegistr.getPassword());
+            personService.register(personFormRegistration.getName(), personFormRegistration.getSurname(),
+                personFormRegistration.getLogin(), personFormRegistration.getMail(), personFormRegistration.getPassword());
             return "registr";
         }
 

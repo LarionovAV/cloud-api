@@ -1,0 +1,48 @@
+.field_unit .err {
+    color: #f21b0f !important;
+    font-size: 10pt;
+}
+fieldset{
+    background-color: #1B1B19;
+    width: 17em;
+    padding-left: 12px;
+    padding-right: 13px;
+    border: 2px solid #797676;
+    margin: 3em auto;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 10px;
+}
+fieldset{
+    color: #fff;
+}
+
+
+.field_unit {
+    margin: 5px;
+    text-align: center;
+    align-self: center;
+}
+.button{
+    display: inline-block;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+legend{
+    align-self: center;
+}
+
+.extra_actions a{
+    color: #fff;
+}
+

@@ -3,35 +3,20 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/reg.css}"/>
+    <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/forms.css}"/>
     <title>Registration</title>
 </head>
 <body>
-<header>
-    <div id="about">
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/login}">Sign In</a>
-        <a href="#">Info</a>
-    </div>
-</header>
-<div class="container">
-    <div class="row" style="margin-top:20px" >
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:action="@{/registr}" method="post" id="form">
-                <fieldset>
-                    <legend class="ram">
-                        <h1>Registration is finished</h1>
-                        <span class="kagkopam"></span>
-                    </legend>
-
-                    <div class="button"  onclick="document.getElementById('form').submit();">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a th:href="@{/}">Home</a>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
+<div th:replace="layouts/header :: myHeader"></div>
+<div id="main_content">
+    <form id="regForm" th:action="@{/}" method="get" class="form">
+        <fieldset>
+            <legend> <h3>Success</h3> </legend>
+            <div class="button" onclick="document.getElementById('regForm').submit();">Home</div>
+        </fieldset>
+    </form>
 </div>
 
 </body>

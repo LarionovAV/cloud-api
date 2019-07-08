@@ -5,12 +5,13 @@
     <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
     <link rel="stylesheet" th:href="@{/css/registr.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/forms.css}"/>
     <title>Registration</title>
 </head>
 <body>
 <div th:replace="layouts/header :: myHeader"></div>
 <div id="main_content">
-    <form id="form" th:action="@{/registration}" method="post" th:object="${personRegistr}">
+    <form id="regForm" th:action="@{/registration}" method="post" th:object="${personFormRegistration}" class="form">
         <fieldset>
             <legend> <h3>Registration</h3> </legend>
             <div class="field_unit">
@@ -33,13 +34,13 @@
 
             <div class="field_unit">
                 <h5> Password </h5>
-                <input placeholder="input password..."  th:field="*{password}"/>
+                <input type="password" placeholder="input password..."  th:field="*{password}"/>
                 <p th:errorclass="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
 
             <div class="field_unit">
                 <h5> Repeat password  </h5>
-                <input placeholder="repeat password..." th:field="*{password2}" />
+                <input type="password" placeholder="repeat password..." th:field="*{password2}" />
                 <th:block th:if="${#fields.hasErrors('password2')}">
                     <div th:errorclass="err" th:errors="*{password2}"></div>
                 </th:block>
@@ -53,7 +54,7 @@
                 </th:block>
             </div>
 
-            <div class="button" onclick="document.getElementById('form').submit();">Registration</div>
+            <div class="button" onclick="document.getElementById('regForm').submit();">Registration</div>
         </fieldset>
     </form>
 </div>
