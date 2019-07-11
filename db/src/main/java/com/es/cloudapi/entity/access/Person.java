@@ -3,6 +3,7 @@ package com.es.cloudapi.entity.access;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -33,7 +34,6 @@ public class Person {
     @Column(name = "date_add", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateAdd;
-
 
     public Person() {
 

@@ -7,3 +7,8 @@
     text-align: center;
     padding: 200px 0px;
 }
+
+
+#main_content p.invalid_auth{
+    color: #f21b0f;
+}

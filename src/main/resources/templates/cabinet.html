@@ -5,21 +5,45 @@
     <link rel="stylesheet" th:href="@{/css/cabinet.css}"/>
     <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/forms.css}"/>
+    <link rel="stylesheet" th:href="@{/css/tables/table.css}"/>
     <title>Cabinet</title>
 </head>
 <body>
-<div th:replace="layouts/header :: AuthUser"></div>
-<div id="request_list">
-    <table>
-        <tr class="table_top">
-            <td>Код</td>
-            <td>Заголовок</td>
-        </tr>
-    </table>
+<div th:replace="layouts/header :: myHeader(isCabinet = true)"></div>
+<div id="main_content">
+    <div id="requests">
+        <!--<div class="button" id="clear-all"
+             th:onclick="${reqList.clear()}">
+            Clear All
+        </div>-->
+        <ul id="request_list">
+            <li th:each="req, iterStat : ${reqList}" th:class="${iterStat.odd}? 'dark': 'light'">
+                <table >
+                    <tr>
+                        <td th:text="${req.getHTTPResultCode()}"></td>
+                        <td th:text="${req.getUrl()}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${req.getBody()}" colspan="2"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </div>
+    <div id="request_body">
+        <form action="/cabinet" method="post" id="form" th:object="${tRequest}">
+            <fieldset>
+                <div>URL: <input id="requestUrl" th:field="*{url}"/></div>
+                <div class="radioButtons">
+                    Method: <input type="radio" th:field="*{method}" value="GET"/> GET
+                    <input type="radio" th:field="*{method}" value="POST"/> POST
+                </div>
+                <div class="button" onclick="document.getElementById('form').submit();">SEND</div>
+            </fieldset>
+        </form>
+    </div>
 </div>
-<div id="request_body">
-
-</div>
-
 </body>
 </html>

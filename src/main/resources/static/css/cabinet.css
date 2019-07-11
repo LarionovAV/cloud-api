@@ -1,0 +1,40 @@
+#main_content{
+    padding-top: 5%;
+    color: #fff;
+}
+
+#requests{
+    margin-left: 0;
+    padding: 5px;
+    float: left;
+    max-height: 100%;
+    width: auto;
+    overflow: auto;
+    display: inline;
+}
+
+#request_body{
+    display: inline;
+    float: right;
+    height: 100%;
+    width: 50%;
+    padding: 5px;
+}
+
+input{
+    align-self: center;
+}
+
+.radioButtons{
+    align-self: center;
+}
+
+form{
+    width: 80%;
+    margin: 5px;
+    padding: 5px;
+}
+
+fieldset{
+    width: 100%;
+}

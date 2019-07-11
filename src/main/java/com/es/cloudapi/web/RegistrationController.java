@@ -1,9 +1,12 @@
 package com.es.cloudapi.web;
 
+import com.es.cloudapi.abstracts.HTTPRequesting;
+import com.es.cloudapi.entity.access.Person;
 import com.es.cloudapi.formFillers.PersonFormRegistration;
 import com.es.cloudapi.repository.PersonRepo;
 import com.es.cloudapi.service.security.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -24,8 +29,9 @@ public class RegistrationController {
     private PersonRepo personRepo;
 
     @GetMapping(value = "/registration")
-    public String registration(Model model) {
+    public String registration(Model model, @AuthenticationPrincipal Person person) {
         model.addAttribute("personFormRegistration", new PersonFormRegistration());
+        model.addAttribute("Auth", person);
         return "registration";
     }
 
@@ -36,7 +42,9 @@ public class RegistrationController {
 
 
     @PostMapping(value = "/registration")
-    public String postRegistration(@Valid @ModelAttribute("personFormRegistration") PersonFormRegistration personFormRegistration, BindingResult bindingResult) {
+    public String postRegistration(@Valid @ModelAttribute("personFormRegistration") PersonFormRegistration personFormRegistration, BindingResult bindingResult,
+                                   HttpServletRequest request, HttpServletResponse response) {
+
 
         if (personFormRegistration.getPassword2() != "" && !personFormRegistration.getPassword().equals(personFormRegistration.getPassword2()))
             bindingResult.addError(new FieldError("personFormRegistration", "password2", "Passwords not equal"));
@@ -45,11 +53,13 @@ public class RegistrationController {
             bindingResult.addError(new FieldError("personFormRegistration", "login", "Login is occupied, please use another one"));
 
         if (bindingResult.hasErrors()){
+            HTTPRequesting.getHTTPRequestInfo(request, response);
             return "registration";
         }
         else {
             personService.register(personFormRegistration.getName(), personFormRegistration.getSurname(),
                 personFormRegistration.getLogin(), personFormRegistration.getMail(), personFormRegistration.getPassword());
+            HTTPRequesting.getHTTPRequestInfo(request, response);
             return "registr";
         }
 
