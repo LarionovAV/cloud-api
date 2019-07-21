@@ -164,7 +164,7 @@ public class Person {
         return (object instanceof Person) && Objects.equals(id, ((Person) object).id);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Person{" +
                "id=" + id +
@@ -180,5 +180,5 @@ public class Person {
                ", blockedAdmin=" + blockedAdmin +
                ", dateAdd=" + dateAdd +
                '}';
-    }
+    }*/
 }

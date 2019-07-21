@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/cabinet.css}"/>
@@ -13,37 +13,64 @@
 <div th:replace="layouts/header :: myHeader(isCabinet = true)"></div>
 <div id="main_content">
     <div id="requests">
-        <!--<div class="button" id="clear-all"
-             th:onclick="${reqList.clear()}">
-            Clear All
-        </div>-->
-        <ul id="request_list">
-            <li th:each="req, iterStat : ${reqList}" th:class="${iterStat.odd}? 'dark': 'light'">
-                <table >
-                    <tr>
-                        <td th:text="${req.getHTTPResultCode()}"></td>
-                        <td th:text="${req.getUrl()}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${req.getBody()}" colspan="2"></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </li>
-        </ul>
+        <div>
+            <ul id="request_list">
+                <li th:each="req, iterStat : ${reqList}" th:class="${iterStat.odd}? 'dark': 'light'">
+                    <form th:id="'req'+${iterStat.index}" action="/cabinet/requestInfo" method="post">
+                        <input type="hidden" th:value="${req.getId()}" name="reqId"/>
+                        <div th:text="${req.name}"
+                             th:onclick="'document.getElementById(\'req'+ ${iterStat.index} +'\').submit();'">
+                        </div>
+                    </form>
+                </li>
+            </ul>
+            <form id="newReq" action="/cabinet/newRequest" method="get">
+                <div class="button" onclick="document.getElementById('newReq').submit()"> New request </div>
+            </form>
+        </div>
     </div>
-    <div id="request_body">
-        <form action="/cabinet" method="post" id="form" th:object="${tRequest}">
+
+    <div id="request_info" th:if="${chosenRequest} != null">
+        <form action="/cabinet/refreshRequest" method="post" id="form" th:object="${chosenRequest} ">
             <fieldset>
-                <div>URL: <input id="requestUrl" th:field="*{url}"/></div>
-                <div class="radioButtons">
-                    Method: <input type="radio" th:field="*{method}" value="GET"/> GET
-                    <input type="radio" th:field="*{method}" value="POST"/> POST
+                <legend> Request info</legend>
+                <input type="hidden" th:field="*{id}"/>
+                <div>
+                    <h5>Name</h5>
+                    <input id="requestName" th:field="*{name}"/>
                 </div>
-                <div class="button" onclick="document.getElementById('form').submit();">SEND</div>
+                <div>
+                    <h5>URL</h5>
+                    <input id="requestUrl" th:field="*{url}"/>
+                </div>
+                <div>
+                    <h5>Header</h5>
+                    <textarea cols="50" rows="10" th:text="*{headers}" th:field="*{headers}">
+                    </textarea>
+                </div>
+                <div class="radioButtons">
+                    <input type="radio" th:field="*{reqType}" value="GET" th:text="'GET'"/>
+                    <input type="radio" th:field="*{reqType}" value="POST" th:text="'POST'"/>
+                </div>
+                <div>
+                    <h5>Priority</h5>
+                    <input type="range" max="100" min="0" step="1" value="0" id="prior" th:field="*{priority}"
+                           oninput="document.getElementById('priorOut')
+                            .setAttribute('value', document.getElementById('prior').value)"/>
+                    <input id="priorOut" readonly="readonly" size="3" th:field="*{priority}"/>
+                </div>
+                <div>
+                    <input type="checkbox" th:field="*{active}"/>
+                </div>
+
+                <div class="button" onclick="document.getElementById('form').submit();">Save</div>
+                <form id="checkform" th:action="'/api/login'+*{url}">
+                    <div class="button" onclick="document.getElementById('form').submit();" id="check">Check</div>
+                </form>
             </fieldset>
         </form>
     </div>
+
 </div>
 </body>
 </html>

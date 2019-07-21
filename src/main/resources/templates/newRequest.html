@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>New request</title>
+    <link rel="stylesheet" th:href="@{/css/headers/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_content/forms.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chpass.css}"/>
+</head>
+<body>
+<div th:replace="layouts/header :: myHeader(isCabinet = true)"></div>
+<div id="main_content">
+    <div id="new_request">
+        <form action="/cabinet/newRequest" method="post" id="form" th:object="${Request} ">
+            <fieldset>
+                <legend> New request</legend>
+                <div>
+                    <h5>Name</h5>
+                    <input id="requestName" th:field="*{name}" th:default="'No_name'"/>
+                </div>
+                <div>
+                    <h5>URL</h5>
+                    <input id="requestUrl" th:field="*{url}"/>
+                </div>
+                <div>
+                    <h5>Header</h5>
+                    <textarea id="requestHeader" th:field="*{headers}"></textarea>
+                </div>
+                <div class="radioButtons">
+                    <input type="radio" th:field="*{reqType}" value="GET" th:text="'GET'"/>
+                    <input type="radio" th:field="*{reqType}" value="POST" th:text="'POST'"/>
+                </div>
+                <div>
+                    <h5>Priority</h5>
+                    <input type="range" max="100" min="0" step="1" value="0" id="prior" th:field="*{priority}"
+                           oninput="document.getElementById('priorOut')
+                                .setAttribute('value', document.getElementById('prior').value)"/>
+                    <input id="priorOut" size="3" th:field="*{priority}" readonly="readonly"/>
+                </div>
+
+                <div class="button" onclick="document.getElementById('form').submit();">ADD</div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

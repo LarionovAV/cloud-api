@@ -3,7 +3,6 @@ package com.es.cloudapi.formFillers;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
 
@@ -18,10 +17,9 @@ public class PersonFormRegistration {
     @Length(min = 5, max = 128, message = "Wrong size")
     private String login;
 
-    @NotBlank(message = "Password is required")
+    @Length(min = 6,message = "Password is required")
     private String password;
 
-    @NotBlank(message = "Password is required")
     private String password2;
 
     @Length(max = 128, message = "Email too long")

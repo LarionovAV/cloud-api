@@ -11,17 +11,19 @@
 <body>
 <div th:replace="layouts/header :: myHeader"></div>
 <div id="main_content">
-    <form id="recForm" th:action="@{/recovery}" method="post" class="form">
+    <form id="recForm" th:action="@{/recovery}" method="post" class="form" th:object="${RecoveryForm}">
         <fieldset>
             <legend> <h3>Password recovery</h3> </legend>
             <div class="field_unit">
                 <h5>  Login </h5>
-                <input placeholder="input login..."/>
+                <input placeholder="input login..." th:field="*{login}"/>
+                <p th:errorclass="err" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
             </div>
 
             <div class="field_unit">
                 <h5> Email </h5>
-                <input placeholder="input email..."/>
+                <input placeholder="input email..." th:field="*{email}"/>
+                <p th:errorclass="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
             <div class="button" onclick="document.getElementById('recForm').submit();">Recovery</div>
         </fieldset>

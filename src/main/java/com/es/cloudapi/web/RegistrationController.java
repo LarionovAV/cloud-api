@@ -1,6 +1,5 @@
 package com.es.cloudapi.web;
 
-import com.es.cloudapi.abstracts.HTTPRequesting;
 import com.es.cloudapi.entity.access.Person;
 import com.es.cloudapi.formFillers.PersonFormRegistration;
 import com.es.cloudapi.repository.PersonRepo;
@@ -53,13 +52,11 @@ public class RegistrationController {
             bindingResult.addError(new FieldError("personFormRegistration", "login", "Login is occupied, please use another one"));
 
         if (bindingResult.hasErrors()){
-            HTTPRequesting.getHTTPRequestInfo(request, response);
             return "registration";
         }
         else {
             personService.register(personFormRegistration.getName(), personFormRegistration.getSurname(),
                 personFormRegistration.getLogin(), personFormRegistration.getMail(), personFormRegistration.getPassword());
-            HTTPRequesting.getHTTPRequestInfo(request, response);
             return "registr";
         }
 

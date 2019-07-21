@@ -2,6 +2,8 @@ package com.es.cloudapi.entity.access;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "request")
@@ -10,11 +12,9 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private boolean active = true;
 
-    @Column(name = "name")
+    private boolean active;
     private String name;
-    @Column(name = "url")
     private String url;
     @Column(name = "request_type")
     private String reqType;
@@ -22,20 +22,37 @@ public class Request {
     private int httpStatus;
     @Column(name = "priority")
     private short priority;
+    @Column(name = "content")
+    private String content;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Person.class,fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id")
     private Person person;
 
+    @ManyToMany(targetEntity = RequestHeader.class,fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "req_head_ref",
+        joinColumns = {@JoinColumn(name = "request_id")},
+        inverseJoinColumns = {@JoinColumn(name = "header_id")}
+    )
+    private Set<RequestHeader> headers = new HashSet<>();
     public Request() {
     }
 
-    public Request(boolean active, String name, String url, String reqType, int httpStatus, short priority) {
-        this.active = active;
-        this.name = name;
-        this.url = url;
-        this.reqType = reqType;
-        this.httpStatus = httpStatus;
-        this.priority = priority;
+    public Set<RequestHeader> getHeaders() {
+        return headers;
+    }
+
+    public String headersToString(){
+        String result = "";
+        for (RequestHeader header : headers){
+            result += header.getHeader() + "\n";
+        }
+        return result;
+    }
+
+    public void setHeaders(Set<RequestHeader> headers) {
+        this.headers = headers;
     }
 
     public Integer getId() {
@@ -92,5 +109,21 @@ public class Request {
 
     public void setPriority(short priority) {
         this.priority = priority;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

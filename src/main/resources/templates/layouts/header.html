@@ -8,7 +8,6 @@
         <div id="signin">
             <a th:if="${Auth} != null" th:href="@{/logout}"> Sign Out </a>
             <a th:if="${Auth} == null" th:href="@{/login}"> Sign In </a>
-            <a th:if="${isCabinet}" th:href="@{/}"> Change password </a>
         </div>
 
         <div id="menu">
@@ -17,25 +16,7 @@
                     <ul class="submenu">
                         <li> <a th:href="@{/}">Home</a> </li>
                         <li> <a th:href="@{/cabinet}">Cabinet</a> </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
-
-<header th:fragment="authHeader">
-    <div id="about">
-        <div id="signin">
-            <a th:href="@{/logout}"> Sign Out </a>
-        </div>
-
-        <div id="menu">
-            <ul class="list_menu" >
-                <li> <a href=""> Menu </a>
-                    <ul class="submenu">
-                        <li> <a th:href="@{/}">Home</a> </li>
-                        <li> <a th:href="@{/cabinet}">Cabinet</a> </li>
+                        <li> <a th:if="${isCabinet}" th:href="@{/change-password}"> Change password </a></li>
                     </ul>
                 </li>
             </ul>

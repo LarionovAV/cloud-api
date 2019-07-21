@@ -1,0 +1,14 @@
+#main_content {
+     width: 100%;
+     background-blend-mode: multiply;
+     background-size: cover;
+     color: #b0b0b0;
+     font-size: 1em;
+     text-align: center;
+     padding: 200px 0px;
+ }
+
+
+#main_content p.invalid_auth{
+    color: #f21b0f;
+}
