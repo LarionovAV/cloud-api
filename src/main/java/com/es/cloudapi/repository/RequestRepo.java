@@ -11,6 +11,7 @@ import java.util.List;
 public interface RequestRepo extends JpaRepository<Request, Integer> {
     List<Request> findByPersonAndActiveOrderByPriorityDescNameAsc(Person person, boolean active);
     List<Request> findByPersonAndUrlAndActive(Person person, String url, boolean active);
+    List<Request> findByPersonOrderByActiveDescPriorityDescNameAsc(Person person);
     Request findById(Integer id);
 
 }

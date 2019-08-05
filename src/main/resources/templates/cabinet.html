@@ -13,60 +13,75 @@
 <div th:replace="layouts/header :: myHeader(isCabinet = true)"></div>
 <div id="main_content">
     <div id="requests">
-        <div>
-            <ul id="request_list">
+        <div id="request_list">
+            <ul>
                 <li th:each="req, iterStat : ${reqList}" th:class="${iterStat.odd}? 'dark': 'light'">
                     <form th:id="'req'+${iterStat.index}" action="/cabinet/requestInfo" method="post">
                         <input type="hidden" th:value="${req.getId()}" name="reqId"/>
-                        <div th:text="${req.name}"
+                        <div th:class="${req.isActive()}?'active':'not_active'"
+                             th:text="${req.name}"
                              th:onclick="'document.getElementById(\'req'+ ${iterStat.index} +'\').submit();'">
                         </div>
                     </form>
                 </li>
             </ul>
-            <form id="newReq" action="/cabinet/newRequest" method="get">
-                <div class="button" onclick="document.getElementById('newReq').submit()"> New request </div>
-            </form>
         </div>
+        <form action="/cabinet/newRequest" method="get">
+            <input type="submit" value="New request"/>
+        </form>
     </div>
 
     <div id="request_info" th:if="${chosenRequest} != null">
+
         <form action="/cabinet/refreshRequest" method="post" id="form" th:object="${chosenRequest} ">
             <fieldset>
-                <legend> Request info</legend>
+                <legend>Request info</legend>
                 <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{person}"/>
+                <input type="hidden" th:field="*{headers}"/>
                 <div>
-                    <h5>Name</h5>
-                    <input id="requestName" th:field="*{name}"/>
+                    <label for="requestName">Name</label><br/>
+                    <input type="text" id="requestName" th:field="*{name}"/>
                 </div>
                 <div>
-                    <h5>URL</h5>
-                    <input id="requestUrl" th:field="*{url}"/>
+                    <label for="requestUrl">URL</label><br/>
+                    <input type="text" id="requestUrl" th:field="*{url}"/>
                 </div>
                 <div>
-                    <h5>Header</h5>
-                    <textarea cols="50" rows="10" th:text="*{headers}" th:field="*{headers}">
+                    <label for="HTTPstatus">Http-Status</label><br/>
+                    <input type="text" id="HTTPstatus" th:field="*{httpStatus}"/>
+                </div>
+                <div>
+                    <label for="headers">Header</label><br/>
+                    <textarea id="headers" cols="50" rows="10" th:text="*{headersToString()}" th:field="*{headersString}">
                     </textarea>
                 </div>
-                <div class="radioButtons">
-                    <input type="radio" th:field="*{reqType}" value="GET" th:text="'GET'"/>
-                    <input type="radio" th:field="*{reqType}" value="POST" th:text="'POST'"/>
-                </div>
                 <div>
-                    <h5>Priority</h5>
+                    <label for="requestContent">Content</label><br/>
+                    <textarea id="requestContent" cols="50" rows="10" th:field="*{content}"></textarea>
+                </div>
+                <select class="selectList" th:field="*{reqType}">
+                    <option th:value="null">--Not selected-- </option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="UPDATE">UPDATE</option>
+                    <option value="COPY">COPY</option>
+                    <option value="OPTIONS">OPTIONS</option>
+                </select>
+                <label>Active</label>
+                <input type="checkbox" th:field="*{active}"/>
+                <div>
+                    <label for="prior">Priority</label><br/>
                     <input type="range" max="100" min="0" step="1" value="0" id="prior" th:field="*{priority}"
-                           oninput="document.getElementById('priorOut')
-                            .setAttribute('value', document.getElementById('prior').value)"/>
+                       oninput="document.getElementById('priorOut')
+                        .setAttribute('value', document.getElementById('prior').value)"/>
                     <input id="priorOut" readonly="readonly" size="3" th:field="*{priority}"/>
                 </div>
-                <div>
-                    <input type="checkbox" th:field="*{active}"/>
-                </div>
 
-                <div class="button" onclick="document.getElementById('form').submit();">Save</div>
-                <form id="checkform" th:action="'/api/login'+*{url}">
-                    <div class="button" onclick="document.getElementById('form').submit();" id="check">Check</div>
-                </form>
+                <input type="submit" value="Save"/>
             </fieldset>
         </form>
     </div>

@@ -36,17 +36,11 @@ public class RequestService {
         requestRepo.saveAndFlush(newReq);
         return newReq;
     }
-    public Request refreshRequest(NewRequestForm req){
-        Request request = requestRepo.findById(req.getId());
-        request.setUrl(req.getUrl());
-        request.setReqType(req.getReqType());
-        request.setName(req.getName());
-        request.setPriority(req.getPriority());
-        request.setActive(req.isActive());
+    public Request refreshRequest(Request req){
 
-        setHeaderSet(request, req.getHeaders());
-        requestRepo.saveAndFlush(request);
-        return request;
+        setHeaderSet(req, req.getHeadersString());
+        requestRepo.saveAndFlush(req);
+        return req;
     }
 
     private void setHeaderSet(Request req, String headers){

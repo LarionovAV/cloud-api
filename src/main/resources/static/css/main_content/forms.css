@@ -1,19 +1,22 @@
+form{
+    display: inline;
+}
 .field_unit .err {
     color: #f21b0f !important;
     font-size: 10pt;
 }
 fieldset{
+    text-align: center;
+    align-content: center;
     background-color: #1B1B19;
     width: 17em;
     padding-left: 12px;
     padding-right: 13px;
     border: 2px solid #797676;
-    margin: 3em auto;
+    margin: auto;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 10px;
-}
-fieldset{
     color: #fff;
 }
 
@@ -35,13 +38,107 @@ fieldset{
     border-radius: 1px;
     transition: 0.2s;
     cursor: pointer;
-    margin: 5px;
+    margin: 5px auto;
 }
 
 legend{
+    margin: auto;
+    align-content: center;
     align-self: center;
+    font-size: 16pt;
 }
 
 .extra_actions a{
     color: #fff;
+}
+
+label{
+    font-size: 12pt;
+}
+
+.radioButtons{
+    margin: auto;
+    align-content: center;
+    align-self: center;
+}
+
+input[type = "submit"]{
+  display: inline-block;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  transition: 0.2s;
+  cursor: pointer;
+  margin: 5px auto;
+  background: none;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 20px;
+}
+
+input[type = "submit"]:hover{
+  display: inline-block;
+  color: yellow;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  transition: 0.2s;
+  cursor: pointer;
+  margin: 5px auto;
+  background: none;
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  font-size: 20px;
+}
+
+fieldset input[type = "text"], fieldset input[type = "password"]{
+  color: white;
+  text-align: center;
+  background: none;
+  border: solid white 2px;
+  font-size: 14pt;
+  border-radius: 10px;
+}
+
+fieldset input[type = "text"]:focus, fieldset input[type = "password"]:focus{
+  text-align: center;
+  background: none;
+  border: solid yellow 2px;
+  font-size: 14pt;
+  border-radius: 10px;
+}
+
+label{
+  font-size: 14pt;
+}
+
+.selectList{
+    font-size: 14pt;
+    color: white;
+    background: none;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.selectList:focus{
+    font-size: 14pt;
+    color: white;
+    background: none;
+    border-radius: 20px;
+    border: 2px solid yellow;
+}
+option{
+    border: none;
+    text-align: center;
+    align-content: center;
+    background: #1B1B19;
 }

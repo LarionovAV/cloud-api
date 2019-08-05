@@ -30,12 +30,12 @@ public class CabinetController {
     @Autowired
     HeaderService headerService;
 
-    private NewRequestForm chReq = null;
+    private Request chReq = null;
 
     @GetMapping(value = "/cabinet")
     public String getCabinet(Model model, @AuthenticationPrincipal Person person) {
         model.addAttribute("Auth", person);
-        model.addAttribute("reqList", requestRepo.findByPersonAndActiveOrderByPriorityDescNameAsc(person,true));
+        model.addAttribute("reqList", requestRepo.findByPersonOrderByActiveDescPriorityDescNameAsc(person));
         model.addAttribute("chosenRequest" , chReq);
         return "cabinet";
     }
@@ -49,38 +49,30 @@ public class CabinetController {
      */
     @GetMapping(value = "/cabinet/newRequest")
     public String showPage(Model model){
-        model.addAttribute("Request", new NewRequestForm());
+        model.addAttribute("Request", new Request());
         return "newRequest";
     }
 
     @PostMapping(value = "/cabinet/newRequest")
-    public String sendRequest(@ModelAttribute("Request") NewRequestForm testRequest,
-                              @AuthenticationPrincipal Person auth) throws IOException {
+    public String saveRequest(@ModelAttribute("Request") Request request,
+                              @AuthenticationPrincipal Person auth){
 
-        requestService.addRequest(testRequest.getName(), testRequest.getUrl(), 0, null,
-            auth, testRequest.getPriority(), testRequest.getReqType(), testRequest.getHeaders());
+        requestService.addRequest(request.getName(), request.getUrl(), request.getHttpStatus(), request.getContent(),
+            auth, request.getPriority(), request.getReqType(), request.getHeadersString());
 
         return "redirect:/cabinet/newRequest";
     }
 
     @PostMapping(value = "/cabinet/refreshRequest")
-    public String refreshRequest(@ModelAttribute("chosenRequest") NewRequestForm chosen){
-        requestService.refreshRequest(chosen);
+    public String refreshRequest(@ModelAttribute("chosenRequest") Request chosen){
+        chReq = requestService.refreshRequest(chosen);
         return "redirect:/cabinet";
     }
 
     @PostMapping(value = "/cabinet/requestInfo")
     public String showInfo(@RequestParam Integer reqId){
-        Request tmp = requestRepo.findById(reqId);
-        chReq = new NewRequestForm();
+        chReq = requestRepo.findById(reqId);
 
-        chReq.setId(reqId);
-        chReq.setActive(tmp.isActive());
-        chReq.setName(tmp.getName());
-        chReq.setPriority(tmp.getPriority());
-        chReq.setReqType(tmp.getReqType());
-        chReq.setUrl(tmp.getUrl());
-        chReq.setHeaders(tmp.headersToString());
         return "redirect:/cabinet";
     }
 }

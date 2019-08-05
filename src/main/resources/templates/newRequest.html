@@ -14,32 +14,48 @@
     <div id="new_request">
         <form action="/cabinet/newRequest" method="post" id="form" th:object="${Request} ">
             <fieldset>
-                <legend> New request</legend>
+                <legend>New request</legend>
+
                 <div>
-                    <h5>Name</h5>
-                    <input id="requestName" th:field="*{name}" th:default="'No_name'"/>
+                    <label>Name</label><br/>
+                    <input type="text" id="requestName" th:field="*{name}" th:default="'No_name'"/>
                 </div>
                 <div>
-                    <h5>URL</h5>
-                    <input id="requestUrl" th:field="*{url}"/>
+                    <label>URL</label><br/>
+                    <input type="text" id="requestUrl" th:field="*{url}"/>
                 </div>
                 <div>
-                    <h5>Header</h5>
-                    <textarea id="requestHeader" th:field="*{headers}"></textarea>
-                </div>
-                <div class="radioButtons">
-                    <input type="radio" th:field="*{reqType}" value="GET" th:text="'GET'"/>
-                    <input type="radio" th:field="*{reqType}" value="POST" th:text="'POST'"/>
+                    <label>Http-Status</label><br/>
+                    <input type="text" id="HTTPstatus" th:field="*{httpStatus}"/>
                 </div>
                 <div>
-                    <h5>Priority</h5>
+                    <label>Header</label><br/>
+                    <textarea type="text" id="requestHeader" cols="50" rows="10" th:field="*{headersString}"></textarea>
+                </div>
+                <div>
+                    <label>Content</label><br/>
+                    <textarea type="text" id="requestContent" cols="50" rows="10" th:field="*{content}"></textarea>
+                </div>
+                <select class="selectList" th:field="*{reqType}">
+                    <option th:value="null">--Not selected--</option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="UPDATE">UPDATE</option>
+                    <option value="COPY">COPY</option>
+                    <option value="OPTIONS">OPTIONS</option>
+                </select>
+                <div>
+                    <label>Priority</label><br/>
                     <input type="range" max="100" min="0" step="1" value="0" id="prior" th:field="*{priority}"
                            oninput="document.getElementById('priorOut')
                                 .setAttribute('value', document.getElementById('prior').value)"/>
                     <input id="priorOut" size="3" th:field="*{priority}" readonly="readonly"/>
                 </div>
 
-                <div class="button" onclick="document.getElementById('form').submit();">ADD</div>
+                <input type="submit" value="ADD"/>
             </fieldset>
         </form>
     </div>

@@ -18,19 +18,19 @@
         <fieldset>
             <legend> <h3>Sign In</h3> </legend>
             <div class="field_unit">
-                <h5>  Login </h5>
-                <input placeholder="input login..." name="username"/>
+                <label>  Login </label><br/>
+                <input type="text" placeholder="input login..." name="username"/>
             </div>
 
             <div class="field_unit">
-                <h5> Password </h5>
-                <input placeholder="input password..." name="password"/>
+                <label> Password </label><br/>
+                <input  type="password" placeholder="input password..." name="password"/>
             </div>
             <div class="extra_actions">
                 <div><a th:href="@{/recovery}">Forgot password</a></div>
                 <div><a th:href="@{/registration}">Registration</a></div>
             </div>
-            <div class="button" onclick="document.getElementById('loginForm').submit();">Log In</div>
+            <input type="submit" value="Login"/>
         </fieldset>
     </form>
 </div>

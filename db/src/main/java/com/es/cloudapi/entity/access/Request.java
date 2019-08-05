@@ -28,7 +28,8 @@ public class Request {
     @ManyToOne(targetEntity = Person.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
     private Person person;
-
+    @Transient
+    private String headersString;
     @ManyToMany(targetEntity = RequestHeader.class,fetch = FetchType.EAGER)
     @JoinTable(
         name = "req_head_ref",
@@ -48,7 +49,16 @@ public class Request {
         for (RequestHeader header : headers){
             result += header.getHeader() + "\n";
         }
+        headersString = result;
         return result;
+    }
+
+    public String getHeadersString() {
+        return headersString;
+    }
+
+    public void setHeadersString(String headersString) {
+        this.headersString = headersString;
     }
 
     public void setHeaders(Set<RequestHeader> headers) {

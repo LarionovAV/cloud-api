@@ -9,10 +9,18 @@ public class NewRequestForm {
     private String reqType;
     private short priority;
     private String headers;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public NewRequestForm() {
     }
-
 
     public Integer getId() {
         return id;
